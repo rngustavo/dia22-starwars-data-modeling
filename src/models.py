@@ -8,23 +8,55 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
+
+class People(Base):
+    __tablename__ = 'people'
+   
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    height = Column(Integer, nullable=False)
+    hair_color = Column(String(50), nullable=False)
+    skin_color = Column(String(50), nullable=False)
+    eye_color = Column(String(50), nullable=False)
+    birth_year = Column(String(50), nullable=False)
+    gender = Column(String(50), nullable=False)
+    homeworld = Column(String(250), nullable=False)
+    url = Column(String(250), nullable=False)
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Planets(Base):
+    __tablename__ = 'planets'
+   
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    name = Column(String(250), nullable=False)
+    rotation_period = Column(Integer, nullable=False)
+    orbital_period = Column(Integer, nullable=False)
+    diameter = Column(Integer, nullable=False)
+    climate = Column(String(50), nullable=False)
+    gravity = Column(String(50), nullable=False)
+    terrain = Column(String(50), nullable=False)
+    surface_water =  Column(Integer, nullable=False)
+    population =  Column(Integer, nullable=False)
+    url = Column(String(250), nullable=False)
+
+
+class Users(Base):
+    __tablename__ = 'users'
+   
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    email = Column(String(150), nullable=False)
+    password = Column(String(50), nullable=False)
+    active = Column(String(50), nullable=False)
+
+class Favorites(Base):
+    __tablename__ = 'favorites'
+   
+    id = Column(Integer, primary_key=True)
+    tipo = Column(Integer, nullable=False)
+    favorite_id = Column(Integer, nullable=False)
+    usuario_id = Column(Integer,ForeignKey('users.id'))
+    users = relationship(Users) 
+    
 
     def to_dict(self):
         return {}
