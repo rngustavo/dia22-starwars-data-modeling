@@ -1,6 +1,6 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -46,7 +46,7 @@ class Users(Base):
     name = Column(String(100), nullable=False)
     email = Column(String(150), nullable=False)
     password = Column(String(50), nullable=False)
-    active = Column(String(50), nullable=False)
+    active = Column(Boolean, nullable=False)
 
 class Favorites(Base):
     __tablename__ = 'favorites'
@@ -56,7 +56,9 @@ class Favorites(Base):
     favorite_id = Column(Integer, nullable=False)
     usuario_id = Column(Integer,ForeignKey('users.id'))
     users = relationship(Users) 
-    
+    #inicialmente se hace solo una relacion de favoritos con usuarios
+    #dado que se usa tipo de favorito no se usa relacion con las otras
+    #dos tablas people y planets
 
     def to_dict(self):
         return {}
